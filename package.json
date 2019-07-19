@@ -1,0 +1,19 @@
+{
+  "name": "denice",
+  "version": "1.0.0",
+  "description": "she's nice",
+  "main": "index.js",
+  "scripts": {
+    "wasm": "cargo build --target wasm32-unknown-unknown --release && wasm-gc target/wasm32-unknown-unknown/release/denice.wasm -o denice.gc.wasm" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benschinn/denice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benschinn/denice/issues"
+  },
+  "homepage": "https://github.com/benschinn/denice#readme"
+}
