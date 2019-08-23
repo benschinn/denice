@@ -4,7 +4,10 @@
   "description": "she's nice",
   "main": "index.js",
   "scripts": {
-    "wasm": "cargo build --target wasm32-unknown-unknown --release && wasm-gc target/wasm32-unknown-unknown/release/denice.wasm -o denice.gc.wasm" 
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./server/index.ts",
+    "prod": "tsc && node ./server/build/index.js",
+    "wasm": "cargo build --target wasm32-unknown-unknown --release && wasm-gc target/wasm32-unknown-unknown/release/denice.wasm -o denice.gc.wasm"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,14 @@
   "bugs": {
     "url": "https://github.com/benschinn/denice/issues"
   },
-  "homepage": "https://github.com/benschinn/denice#readme"
+  "homepage": "https://github.com/benschinn/denice#readme",
+  "dependencies": {
+    "@types/express": "^4.17.1",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^1.0.0-pre.41"
+  }
 }
