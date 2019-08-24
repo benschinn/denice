@@ -4,9 +4,9 @@ import https = require('./utils/https');
 
 const app: express.Application = express();
 
-const processText = txt => txt.replace(/\n/g, '')
+const processText = (txt, limit=1) => txt.replace(/\n/g, '')
         .split(' ')
-        .filter(i => i.length > 1)
+        .filter(i => i.length > limit)
         .join(' '); 
 
 app.get('/nyt-recipe', async function (req, res) {
@@ -22,7 +22,7 @@ app.get('/nyt-recipe', async function (req, res) {
         ingredients.push({ingredientName: ingredient})
       })
       const quantities = $('ul.recipe-ingredients span.quantity').each((index, span) => {
-        const quantity= processText($(span).text())
+        const quantity= processText($(span).text(), 0)
         console.log(quantity)
         ingredients[index] = {...ingredients[index], quantity};
       })
