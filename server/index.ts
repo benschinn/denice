@@ -1,37 +1,42 @@
 import express = require('express');
-import https = require('https');
-import http = require('http');
 import cheerio = require('cheerio');
+import https = require('./utils/https');
 
 const app: express.Application = express();
 
-const httpGet = url => {
-  return new Promise((resolve, reject) => {
-    https.get(url, res => {
-      res.setEncoding('utf8');
-      let body = ''; 
-      res.on('data', chunk => body += chunk);
-      res.on('end', () => resolve(body));
-    }).on('error', reject);
-  });
-};
+const processText = txt => txt.replace(/\n/g, '')
+        .split(' ')
+        .filter(i => i.length > 1)
+        .join(' '); 
 
 app.get('/nyt-recipe', async function (req, res) {
   const url = 'https://cooking.nytimes.com/recipes/1019693-slow-cooker-chipotle-honey-chicken-tacos';
-  const body = await httpGet(url).then(res => {
-    const $ = cheerio.load(res)
-    const title = $('.recipe-title')
-      .text()
-      .replace(/\n/g, '')
-      .split(' ')
-      .filter(i => i.length > 1)
-      .join(' ')
-    return {
-      title
-    }
-  })
-  res.send(body)
-  .catch(err => console.log(err))
+  try {
+    const body = await https.get(url).then(res => {
+      const $ = cheerio.load(res)
+      const title = processText($('.recipe-title').text())
+
+      const ingredients = [];
+      const ingredientsList = $('ul.recipe-ingredients li').each((index, li) => {
+        const ingredient = processText($(li).text())
+        ingredients.push({ingredientName: ingredient})
+      })
+      const quantities = $('ul.recipe-ingredients span.quantity').each((index, span) => {
+        const quantity= processText($(span).text())
+        console.log(quantity)
+        ingredients[index] = {...ingredients[index], quantity};
+      })
+
+      return {
+        title,
+        ingredients
+      }
+    })
+    res.send(body)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+  
 });
 
 app.listen(3003, function () {
