@@ -1,6 +1,7 @@
 import express = require('express')
 import https = require('../../utils/https')
 import cheerio = require('cheerio')
+import db = require('../../db')
 
 const routes = express.Router()
 
@@ -42,6 +43,19 @@ routes.get('/:recipeId', async function (req, res) {
       $('ul.recipe-notes li').each((index, tip) => {
         const tipVal = processText($(tip).text())
         tips.push(tipVal)
+      })
+      const recipeRef = db.collection('recipes').doc(recipeId)
+      const setRecipe = recipeRef.set({
+        recipeId,
+        title,
+        author,
+        yieldValue,
+        timeValue,
+        ingredients,
+        img,
+        description,
+        steps,
+        tips,
       })
       return {
         recipeId,

@@ -4,3 +4,5 @@ Cargo.lock
 
 node_modules
 server/build
+server/db_config.json
+
