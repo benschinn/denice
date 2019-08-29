@@ -1,5 +1,6 @@
 import express = require('express')
 import https = require('../../utils/https')
+import firestore = require('../../utils/firestore')
 import cheerio = require('cheerio')
 import db = require('../../db')
 
@@ -18,7 +19,8 @@ routes.get('/:recipeId', async function (req, res) {
       const $ = cheerio.load(res)
       const title = processText($('.recipe-title').text())
       const author = processText($('a.author').text())
-      const img = $('div.media-container img').attr('src')
+      const imgSrc = $('div.media-container img').attr('src')
+      const img = imgSrc ? imgSrc : ''
       const yieldValue = $('span.recipe-yield-value').first().text()
       const timeValue = $('span.recipe-yield-value').last().text()
       const description = $('div.topnote p').text()
@@ -44,20 +46,7 @@ routes.get('/:recipeId', async function (req, res) {
         const tipVal = processText($(tip).text())
         tips.push(tipVal)
       })
-      const recipeRef = db.collection('recipes').doc(recipeId)
-      const setRecipe = recipeRef.set({
-        recipeId,
-        title,
-        author,
-        yieldValue,
-        timeValue,
-        ingredients,
-        img,
-        description,
-        steps,
-        tips,
-      })
-      return {
+      const result = {
         recipeId,
         title,
         author,
@@ -69,6 +58,8 @@ routes.get('/:recipeId', async function (req, res) {
         steps,
         tips,
       }
+      firestore.write('recipes', recipeId, result)
+      return result 
     }).catch(err => (err))
     res.send(body)
   } catch (error) {
