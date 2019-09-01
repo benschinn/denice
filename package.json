@@ -4,6 +4,13 @@
   "description": "she's nice",
   "main": "index.js",
   "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack -w",
+    "webpack:production": "NODE_ENV=production webpack",
+    "server": "webpack-dev-server",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./server/index.ts",
     "prod": "tsc && node ./server/build/index.js",
@@ -13,7 +20,10 @@
     "type": "git",
     "url": "git+https://github.com/benschinn/denice.git"
   },
-  "author": "",
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "Ben Schinn",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/benschinn/denice/issues"
@@ -24,9 +34,17 @@
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "firebase-admin": "^8.4.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "reason-react": ">=0.7.0"
   },
   "devDependencies": {
-    "ts-node-dev": "^1.0.0-pre.41"
+    "ts-node-dev": "^1.0.0-pre.41",
+    "bs-platform": "^5.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.8"
   }
 }
