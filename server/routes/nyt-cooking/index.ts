@@ -4,12 +4,12 @@ import firestore = require('../../utils/firestore')
 import cheerio = require('cheerio')
 import db = require('../../db')
 
-const routes = express.Router()
-
 const processText = (txt, limit=1) => txt.replace(/\n/g, '')
         .split(' ')
         .filter(i => i.length > limit)
         .join(' '); 
+
+const routes = express.Router()
 
 routes.get('/:recipeId', async function (req, res) {
   const { recipeId } = req.params
