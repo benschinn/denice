@@ -1,8 +1,19 @@
+.DS_Store
+
+# rust wasm
 /target
 **/*.rs.bk
 Cargo.lock
 
+# node
 node_modules
 server/build
 server/db_config.json
 
+# reason
+.merlin
+.bsb.lock
+npm-debug.log
+/lib/bs/
+*.bs.js
+/build
