@@ -1,37 +1,39 @@
-module Component {
- [@react.component]
-let make = () =>
-  <div>
-    {ReasonReact.string("Component")}
-  </div>; 
-};
-
-module Component1 {
- [@react.component]
-let make = () =>
-  <div>
-    {ReasonReact.string("Component1")}
-  </div>; 
-};
-
 let str = ReasonReact.string;
 let push = ReasonReact.Router.push;
-let handleClick = (_event) => Js.log("clicked!");
+
+module AddNewRecipe {
+ [@react.component]
+let make = () =>
+  <div>
+    <form>
+      <input type_="text" />  
+      <button>(str("submit"))</button>
+    </form>
+  </div>; 
+};
+
+module RecipeList {
+ [@react.component]
+let make = () =>
+  <div>
+    {ReasonReact.string("Recipe List")}
+  </div>; 
+};
 
 [@react.component]
 let make = () => {
   let url = ReasonReactRouter.useUrl();
   <div>
     <ul>
-      <li onClick=(_evt => push("c"))>(str("c"))</li>
-      <li onClick=(_evt => push("c1"))>(str("c1"))</li>
+      <li onClick=(_evt => push("/"))>(str("home"))</li>
+      <li onClick=(_evt => push("recipes"))>(str("recipes"))</li>
     </ul>
     <div>
      (
        switch(url.path) {
-       | ["c"] => <Component />
-       | ["c1"] => <Component1 />
-       | _ => <Component />
+       | [""] => <AddNewRecipe />
+       | ["recipes"] => <RecipeList />
+       | _ => <AddNewRecipe />
        }
      ) 
     </div> 
