@@ -23,6 +23,17 @@ let make = () =>
 [@react.component]
 let make = () => {
   let url = ReasonReactRouter.useUrl();
+  let _ = React.useEffect0(() => {
+    Js.Promise.(
+      Firestore.db##collection("recipes")##get()
+      |> then_(querySnapshot=> {
+           querySnapshot
+           |> Js.Array.forEach(d => Js.log(d##data()))
+           |> resolve
+      })
+    );
+    None;
+  });
   <div>
     <ul>
       <li onClick=(_evt => push("/"))>(str("home"))</li>

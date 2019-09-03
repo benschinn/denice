@@ -17,3 +17,4 @@ npm-debug.log
 /lib/bs/
 *.bs.js
 /build
+firebase.config.json
