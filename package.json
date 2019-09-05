@@ -33,11 +33,12 @@
     "@types/express": "^4.17.1",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "firebase": "^6.5.0",
     "firebase-admin": "^8.4.0",
-    "typescript": "^3.5.3",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "reason-react": ">=0.7.0"
+    "reason-react": ">=0.7.0",
+    "typescript": "^3.5.3"
   },
   "devDependencies": {
     "ts-node-dev": "^1.0.0-pre.41",
