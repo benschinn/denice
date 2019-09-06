@@ -2,8 +2,6 @@ let str = ReasonReact.string;
 let pushRoute = ReasonReact.Router.push;
 [@bs.send.pipe: array('a)] external push: 'a => array('a) = "";
 
-external toFirestoreDoc : 'a  => Js.t('a) = "%identity";
-
 module AddNewRecipe {
   [@react.component]
   let make = () =>
@@ -16,7 +14,10 @@ module AddNewRecipe {
 };
 
 module RecipeList {
-  type t = Js.t(ReactHooksTemplate.Firestore.d);
+  type t = {
+    .
+    "title": string,
+  };
 
   type action = 
     | SetRecipes(array(t));
@@ -51,7 +52,15 @@ module RecipeList {
       None;
     });
     <div>
-      {ReasonReact.string("Recipe List")}
+      <h1>{ReasonReact.string("Recipe List")}</h1>
+      <ul>
+        (
+          React.array(
+            state.recipes
+            |> Array.map(recipe => <li>(recipe##title |> str)</li>)
+          )
+        )
+      </ul>
     </div>; 
   }
 };
