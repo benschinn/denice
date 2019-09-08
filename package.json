@@ -31,6 +31,7 @@
   "homepage": "https://github.com/benschinn/denice#readme",
   "dependencies": {
     "@types/express": "^4.17.1",
+    "bs-css": "^10.0.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "firebase": "^6.5.0",
