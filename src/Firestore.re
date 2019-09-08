@@ -32,7 +32,6 @@ type t = {
 
 [@bs.module] external firebase : t = "firebase";
 
-
 let _ = firebase##initializeApp(config);
 
 let db = firebase##firestore();

@@ -24,6 +24,8 @@ module Styles {
     flexDirection(column),
     height(100. |> vh),
   ]); 
+
+  let title = style([fontSize(rem(1.25))]);
 };
 
 [@react.component]
@@ -52,7 +54,7 @@ let make = () => {
     None;
   });
   <div className=Styles.container>
-    <h1>{ReasonReact.string("Recipe List")}</h1>
+    <h1 className=Styles.title>"Recipe List" -> str</h1>
     <ul>
     (
       React.array(
@@ -61,6 +63,7 @@ let make = () => {
         )
     )
     </ul>
+    <p onClick=(_evt => back())>"back" -> str</p>
   </div>; 
 }
 
