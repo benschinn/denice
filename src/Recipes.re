@@ -70,7 +70,7 @@ let make = () => {
   <div className=Styles.container>
     <h1 className=Styles.title>"Recipe List" -> str</h1>
     (state.isLoading ?
-    <div>"loading..."->str</div>
+    <Loading isLoading=state.isLoading /> 
     : <ul>
     (
       React.array(
