@@ -42,6 +42,7 @@ let make = () => {
        switch(url.path) {
        | [""] => <AddNewRecipe />
        | ["recipes"] => <Recipes />
+       | ["recipe"] => <Recipe />
        | _ => <AddNewRecipe />
        }
      ) 
